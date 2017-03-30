@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package modele;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,20 +14,22 @@ import java.util.List;
  */
 public class Entreprise {
 
-    private List<OffreStage> lesOffres = new LinkedList<OffreStage>();
-    private String nomEntreprise;
-    private String adVille;
-    private String adRue;
-    private String CodePostal;
-    private String tel;
-    private String email;
-    private String secteur;
+    public static List<OffreStage> lesOffres = new LinkedList<OffreStage>();
+    public static String id;
+    public static String nomEntreprise;
+    public static String adVille;
+    public static String adRue;
+    public static String CodePostal;
+    public static String tel;
+    public static String email;
+    public static String secteur;
 
     public Entreprise() {
 
     }
 
-    public Entreprise(String nomEntreprise, String adVille, String adRue, String CodePostal, String tel, String email, String secteur) {
+    public Entreprise(String id,String nomEntreprise, String adVille, String adRue, String CodePostal, String tel, String email, String secteur) {
+        this.id =id;
         this.nomEntreprise = nomEntreprise;
         this.adVille = adVille;
         this.adRue = adRue;
@@ -36,6 +38,15 @@ public class Entreprise {
         this.email = email;
         this.secteur = secteur;
     }
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setId(String id) {
+        Entreprise.id = id;
+    }
+    
 
     public String getNomEntreprise() {
         return nomEntreprise;
@@ -95,9 +106,9 @@ public class Entreprise {
 
     @Override
     public String toString() {
-        return   "\n"+ " nom de l'Entreprise :" + 
-                nomEntreprise +"\n"+  "- Ville :" + adVille +"\n"+ "- Rue : " + adRue +"\n"+ "- Code postal :" + 
-                CodePostal +"\n"+ "- Tel :" + tel +"\n"+ "- Email : " + email +"\n"+ "- Secteur :" + secteur ;
+        return "\n" + " nom de l'Entreprise :"
+                + nomEntreprise + "\n" + "- Ville :" + adVille + "\n" + "- Rue : " + adRue + "\n" + "- Code postal :"
+                + CodePostal + "\n" + "- Tel :" + tel + "\n" + "- Email : " + email + "\n" + "- Secteur :" + secteur;
     }
 
 }

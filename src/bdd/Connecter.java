@@ -19,27 +19,26 @@ import java.sql.SQLException;
 public class Connecter {
 
     Connection con;
-    PreparedStatement  pstmt;
+    
 
-    public Connecter() {
+    public static Connection Connecter() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-        } catch (ClassNotFoundException e) {
-            System.err.println(e);
-//afficher l'erreur
-        }
-
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "root");
-
-        } catch (SQLException e) {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "root");
+            return con;
+        } catch (Exception e) {
             System.err.println(e);
         }
+        return null;
+        
+        
+    
     }
-
-    Connection obtenirConnexion() {
-        return con;
-    }
-
 }
+    
+        
+    
+
+
+
