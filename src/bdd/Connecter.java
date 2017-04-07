@@ -25,7 +25,7 @@ public class Connecter {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "");
             return con;
         } catch (Exception e) {
             System.err.println(e);
