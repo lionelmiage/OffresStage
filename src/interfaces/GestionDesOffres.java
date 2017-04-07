@@ -85,7 +85,6 @@ public class GestionDesOffres extends javax.swing.JFrame {
         boutonCreer.setMaximumSize(new java.awt.Dimension(139, 29));
         boutonCreer.setMinimumSize(new java.awt.Dimension(139, 29));
         boutonCreer.setPreferredSize(new java.awt.Dimension(139, 29));
-        boutonCreer.setSize(new java.awt.Dimension(150, 150));
         boutonCreer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonCreerActionPerformed(evt);
@@ -120,7 +119,6 @@ public class GestionDesOffres extends javax.swing.JFrame {
         boutonModifier.setMaximumSize(new java.awt.Dimension(139, 29));
         boutonModifier.setMinimumSize(new java.awt.Dimension(139, 29));
         boutonModifier.setPreferredSize(new java.awt.Dimension(139, 29));
-        boutonModifier.setSize(new java.awt.Dimension(150, 150));
         boutonModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonModifierActionPerformed(evt);
