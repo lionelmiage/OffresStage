@@ -5,17 +5,27 @@
  */
 package interfaces;
 
+import bdd.Connecter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Bilal
  */
 public class ConsulterOffreEtudiant extends javax.swing.JFrame {
+    Connection con = null;
+    PreparedStatement pr = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form ConsulterOffre
      */
     public ConsulterOffreEtudiant() {
+        con = Connecter.Connecter();
         initComponents();
+        
     }
 
     /**
@@ -237,6 +247,7 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultationNomEntrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationNomEntrActionPerformed

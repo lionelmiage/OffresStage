@@ -10,27 +10,56 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import modele.Entreprise;
+import static modele.Entreprise.adVille;
+import static modele.Entreprise.email;
+import static modele.Entreprise.nomEntreprise;
+import modele.OffreStage;
 
 /**
  *
  * @author Bilal
  */
 public class AdminCreerOffre extends javax.swing.JFrame {
-        Connection con = null;
-        PreparedStatement pr = null;
-        ResultSet rs = null;
-    
-     
-    public AdminCreerOffre(){
+
+    Connection con = null;
+    PreparedStatement pr = null;
+    ResultSet rs = null;
+
+    public AdminCreerOffre() {
         con = Connecter.Connecter();
         initComponents();
-        listeEntreprise();
-     
-       
-       
+        lesEntreprises();
+
     }
-    
+
+    public void listeOffre() {
+        try {
+            String sql = "SELECT * FROM Offre";
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+
+            while (rs.next()) {
+                //OffreStage o1=new OffreStage(nomEntreprise,adVille,email);
+                String nom_entr =rs.getString("nom_entreprise");
+                 String ville = rs.getString("adresse_ville_entreprise");
+               String email =  rs.getString("email_entreprise");
+               // rs.getString(o1.getNom_entreprise());
+               //String ville = rs.getString(o1.getVille_entreprise());
+             //rs.getString(o1.getContact_entreprise());
+
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    public void montrerEntreprise(int index) {
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -235,18 +264,18 @@ public class AdminCreerOffre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAdminActionPerformed
-         
-                        
-    
+
+
     }//GEN-LAST:event_comboAdminActionPerformed
 
     private void boutonEnvoyerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerOffreActionPerformed
-       
 
         try {
-           
+            int index = 0;
+            String email = lesEntreprises().get(index).getEmail();
 
-           
+            String ville = lesEntreprises().get(index).getAdVille();
+
             String sql = "INSERT INTO Offre "
                     + "(libelle_offre,"//1
                     + "description_offre,"//2
@@ -254,9 +283,11 @@ public class AdminCreerOffre extends javax.swing.JFrame {
                     + "date_debut_offre,"//4
                     + "duree_offre,"//5
                     + "chemin_offre,"//6
-                    +"id_entreprise)"//7
-                    
-                    + "VALUES(?,?,?,?,?,?,?)";
+                    //+"id_entreprise,"//
+                    + "nom_entreprise,"//7
+                    + "email_entreprise,"//8
+                    + "adresse_ville_entreprise)"//9
+                    + " VALUES(?,?,?,?,?,?,?,?,?)";
 
             pr = con.prepareStatement(sql);
 
@@ -266,12 +297,16 @@ public class AdminCreerOffre extends javax.swing.JFrame {
             pr.setString(4, txtDateOffre.getText());
             pr.setString(5, txtDureeOffre.getText());
             pr.setString(6, txtCheminStockage.getText());
-            String id=comboAdmin.getSelectedItem().toString();
-            pr.setObject(7,id );
+            String nom = comboAdmin.getSelectedItem().toString();
+            pr.setString(7, nom);
+
+            pr.setString(8, email);
+            pr.setString(9, ville);
             pr.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "L'offre a été ajoutée avec succès !");
             pr.close();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -286,36 +321,52 @@ public class AdminCreerOffre extends javax.swing.JFrame {
     private void boutonAnnulerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerOffreActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_boutonAnnulerOffreActionPerformed
-    private void listeEntreprise(){
+
+    public List<Entreprise> lesEntreprises() {
+
         try {
-             
-             String sql = "SELECT * FROM Entreprise";
-             pr = con.prepareStatement(sql);
-             rs = pr.executeQuery();
-             
-             
-             while(rs.next()){
-             String nom = rs.getString("nom_entreprise");
-             String id = rs.getString("id_entreprise");
-             
-             // nom de la combo
-             comboAdmin.addItem(id);
-             
-             }
-             
+
+            String sql = "select * FROM Entreprise";
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            List<Entreprise> lesEntreprises = new ArrayList<Entreprise>();
+            Entreprise e;
+            while (rs.next()) {
+
+                e = new Entreprise(
+                        
+                        rs.getString("nom_entreprise"),
+                        rs.getString("adresse_ville_entreprise"),
+                        rs.getString("adresse_rue_entreprise"),
+                        rs.getString("adresse_code_postal_entreprise"),
+                        rs.getString("tel_entreprise"),
+                        rs.getString("email_entreprise"),
+                        rs.getString("secteur_activite"));
+
+                lesEntreprises.add(e);
+
+                String nom = rs.getString("nom_entreprise");
+
+                // nom de la combo
+                comboAdmin.addItem(nom);
+
+            }
+            return lesEntreprises;
+
         } catch (Exception e) {
+            return null;
         }
-        
-    
+
     }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-      
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           new AdminCreerOffre().setVisible(true);
+                new AdminCreerOffre().setVisible(true);
             }
         });
     }

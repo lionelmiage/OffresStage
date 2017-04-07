@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import bdd.Connecter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,12 +16,16 @@ import javax.swing.JOptionPane;
  *
  * @author Bilal
  */
-public class CreerOffre extends javax.swing.JFrame {
+public class EntrepriseCreerOffre extends javax.swing.JFrame {
+    Connection con = null;
+    PreparedStatement pr = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form CreationOffre
      */
-    public CreerOffre(){
+    public EntrepriseCreerOffre(){
+        con= Connecter.Connecter();
         initComponents();
        
     }
@@ -259,12 +264,11 @@ public class CreerOffre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void boutonEnvoyerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerOffreActionPerformed
-        Connection con = null;
-        PreparedStatement pr = null;
+        
 
         try {
 
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "root");
+            
             String sql = "INSERT INTO Offre "
                     + "(libelle_offre,"//1
                     + "description_offre,"//2
@@ -308,7 +312,7 @@ public class CreerOffre extends javax.swing.JFrame {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           new CreerOffre().setVisible(true);
+           new EntrepriseCreerOffre().setVisible(true);
             }
         });
     }

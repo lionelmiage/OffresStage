@@ -10,8 +10,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
+import modele.Admin;
 import modele.Entreprise;
+import modele.OffreStage;
 
 /**
  *
@@ -46,13 +49,13 @@ public class Accueil extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtMdp = new javax.swing.JTextField();
         txtIdentifiant = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         boutonEtudiant = new javax.swing.JButton();
         boutonEntreprise = new javax.swing.JButton();
         bouton_valider = new javax.swing.JButton();
         choixUtilisateur = new javax.swing.JComboBox();
+        txtMdp = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,14 +92,6 @@ public class Accueil extends javax.swing.JFrame {
         jLabel4.setText("Créer un compte");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(150, 270, 200, 30);
-
-        txtMdp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMdpActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtMdp);
-        txtMdp.setBounds(150, 160, 240, 28);
         jPanel1.add(txtIdentifiant);
         txtIdentifiant.setBounds(150, 120, 240, 28);
         jPanel1.add(jLabel6);
@@ -138,11 +133,19 @@ public class Accueil extends javax.swing.JFrame {
         jPanel1.add(choixUtilisateur);
         choixUtilisateur.setBounds(40, 80, 120, 27);
 
+        txtMdp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMdpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtMdp);
+        txtMdp.setBounds(150, 160, 240, 28);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +153,8 @@ public class Accueil extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtMdpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMdpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMdpActionPerformed
 
     private void boutonEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEntrepriseActionPerformed
         CreerEntreprise c = new CreerEntreprise();
@@ -169,11 +169,11 @@ public class Accueil extends javax.swing.JFrame {
     private void bouton_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_validerActionPerformed
         String choix = choixUtilisateur.getSelectedItem().toString();
         String id = txtIdentifiant.getText();
-        String motdepasse = txtMdp.getText();
+        String motdepasse = new String(txtMdp.getPassword());
         boolean drap = false;
 
         try {
-            String sql = "select email, mdp from " + choix;//" where email = ? and mdp = ?";
+            String sql = "select * from " + choix;//" where email = ? and mdp = ?";
 
             pr = con.prepareStatement(sql);
             //pr.setString(1, id);
@@ -182,33 +182,33 @@ public class Accueil extends javax.swing.JFrame {
 
             while (rs.next()) {
                 //je recupère chaque email de la table 
-                String identifiant= rs.getString("email");
-                Entreprise.email = identifiant;
-                
-                if (rs.getString("email").equals(id) && rs.getString("mdp").equals(motdepasse)) {
-                    if (choix == "Admin") {
 
-                        GestionDesOffres g = new GestionDesOffres();
-                        g.setVisible(true);
-                        this.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Vous êtes connecté");
+                if ((choix == "Admin") && (rs.getString("email_admin").equals(id) && rs.getString("mdp_admin").equals(motdepasse))) {
+                    String id_admin=rs.getString("email_admin");
+                    Admin.id_admin = id_admin;
+                    
+                    GestionDesOffres g = new GestionDesOffres();
+                    g.setVisible(true);
+                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Vous êtes connecté");
 
-                        break;
+                    break;
 
-                    } else if (choix == "Etudiant") {
-                        ConsulterOffreEtudiant c = new ConsulterOffreEtudiant();
-                        c.setVisible(true);
-                        this.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Vous êtes connecté");
-
-                        break;
-                    }
-                    CreerOffre c = new CreerOffre();
+                } else if ((choix == "Etudiant") && (rs.getString("email_etudiant").equals(id) && rs.getString("mdp_etudiant").equals(motdepasse))) {
+                    ConsulterOffreEtudiant c = new ConsulterOffreEtudiant();
                     c.setVisible(true);
                     this.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
 
-                    drap = false;
+                    break;
+                } else if ((choix == "Entreprise") && (rs.getString("email_entreprise").equals(id) && rs.getString("mdp_entreprise").equals(motdepasse))) {
+                    String id_entreprise = rs.getString("email_entreprise");
+                    Entreprise.email = id_entreprise;
+                    EntrepriseCreerOffre c = new EntrepriseCreerOffre();
+                    c.setVisible(true);
+                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Vous êtes connecté");
+
                     break;
                 } else {
                     drap = true;
@@ -229,6 +229,10 @@ public class Accueil extends javax.swing.JFrame {
     private void choixUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixUtilisateurActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_choixUtilisateurActionPerformed
+
+    private void txtMdpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMdpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMdpActionPerformed
 
     public static void main(String[] args) {
 
@@ -278,6 +282,6 @@ public class Accueil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtIdentifiant;
-    private javax.swing.JTextField txtMdp;
+    private javax.swing.JPasswordField txtMdp;
     // End of variables declaration//GEN-END:variables
 }

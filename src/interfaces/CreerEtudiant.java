@@ -6,18 +6,24 @@
 package interfaces;
 
 import bdd.Connecter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 /**
  *
  * @author Bilal
  */
 public class CreerEtudiant extends javax.swing.JFrame {
-
+        Connection con = null;
+        PreparedStatement pr = null;
+        ResultSet rs = null;
     /**
      * Creates new form Etudiant
      */
     public CreerEtudiant() {
+        con = Connecter.Connecter();
         initComponents();
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class Entreprise {
 
     public static List<OffreStage> lesOffres = new LinkedList<OffreStage>();
-    public static String id;
+
     public static String nomEntreprise;
     public static String adVille;
     public static String adRue;
@@ -28,25 +28,16 @@ public class Entreprise {
 
     }
 
-    public Entreprise(String id,String nomEntreprise, String adVille, String adRue, String CodePostal, String tel, String email, String secteur) {
-        this.id =id;
-        this.nomEntreprise = nomEntreprise;
-        this.adVille = adVille;
-        this.adRue = adRue;
-        this.CodePostal = CodePostal;
-        this.tel = tel;
-        this.email = email;
-        this.secteur = secteur;
+    public Entreprise( String nomEntreprise, String adVille, String adRue, String CodePostal, String tel, String email, String secteur) {
+       
+        Entreprise.nomEntreprise = nomEntreprise;
+        Entreprise.adVille = adVille;
+        Entreprise.adRue = adRue;
+        Entreprise.CodePostal = CodePostal;
+        Entreprise.tel = tel;
+        Entreprise.email = email;
+        Entreprise.secteur = secteur;
     }
-
-    public static String getId() {
-        return id;
-    }
-
-    public static void setId(String id) {
-        Entreprise.id = id;
-    }
-    
 
     public String getNomEntreprise() {
         return nomEntreprise;
@@ -57,11 +48,11 @@ public class Entreprise {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        Entreprise.email = email;
     }
 
     public void setNomEntreprise(String nomEntreprise) {
-        this.nomEntreprise = nomEntreprise;
+        Entreprise.nomEntreprise = nomEntreprise;
     }
 
     public String getAdVille() {
@@ -69,7 +60,7 @@ public class Entreprise {
     }
 
     public void setAdVille(String adVille) {
-        this.adVille = adVille;
+        Entreprise.adVille = adVille;
     }
 
     public String getAdRue() {
@@ -77,7 +68,7 @@ public class Entreprise {
     }
 
     public void setAdRue(String adRue) {
-        this.adRue = adRue;
+        Entreprise.adRue = adRue;
     }
 
     public String getCodePostal() {
@@ -85,7 +76,7 @@ public class Entreprise {
     }
 
     public void setCodePostal(String CodePostal) {
-        this.CodePostal = CodePostal;
+        Entreprise.CodePostal = CodePostal;
     }
 
     public String getTel() {
@@ -93,7 +84,7 @@ public class Entreprise {
     }
 
     public void setTel(String tel) {
-        this.tel = tel;
+        Entreprise.tel = tel;
     }
 
     public String getSecteur() {
@@ -101,7 +92,7 @@ public class Entreprise {
     }
 
     public void setSecteur(String secteur) {
-        this.secteur = secteur;
+        Entreprise.secteur = secteur;
     }
 
     @Override

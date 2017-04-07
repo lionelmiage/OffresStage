@@ -5,7 +5,15 @@
  */
 package interfaces;
 
+import bdd.Connecter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import modele.Admin;
 import modele.Entreprise;
+import modele.OffreStage;
 
 /**
  *
@@ -13,14 +21,18 @@ import modele.Entreprise;
  */
 public class GestionDesOffres extends javax.swing.JFrame {
 
+    Connection con = null;
+    PreparedStatement pr = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form GestionDesOffres
      */
     public GestionDesOffres() {
+        con = Connecter.Connecter();
         initComponents();
-        txtIdRecupéré.setText(String.valueOf(Entreprise.email).toString());
-        
-       
+        txtIdRecupéré.setText(String.valueOf(Admin.id_admin).toString());
+
     }
 
     /**
@@ -44,6 +56,9 @@ public class GestionDesOffres extends javax.swing.JFrame {
         txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(700, 800));
+        setMinimumSize(new java.awt.Dimension(500, 400));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 255));
@@ -181,20 +196,24 @@ public class GestionDesOffres extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 500, 400);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 /*Ce bouton sert à créer une nouvelle offre 
-    */
+     */
     private void boutonSaisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSaisirActionPerformed
         AdminCreerOffre m = new AdminCreerOffre();
         m.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_boutonSaisirActionPerformed
 
     private void boutonConsulterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConsulterActionPerformed
+
         ConsulterOffre c = new ConsulterOffre();
+
         c.setVisible(true);
-       
+
+
     }//GEN-LAST:event_boutonConsulterActionPerformed
 
     private void bontonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bontonAnnulerActionPerformed
@@ -205,14 +224,14 @@ public class GestionDesOffres extends javax.swing.JFrame {
 
         CreerEntreprise c = new CreerEntreprise();
         c.setVisible(true);
-        
+
     }//GEN-LAST:event_boutonCreerActionPerformed
 
     private void boutonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonModifierActionPerformed
         ModifierEntreprise m = new ModifierEntreprise();
         m.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_boutonModifierActionPerformed
 
     /**

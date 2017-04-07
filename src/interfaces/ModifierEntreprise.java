@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import modele.Entreprise;
 
 /**
  *
@@ -21,15 +24,55 @@ import javax.swing.JOptionPane;
  */
 public class ModifierEntreprise extends javax.swing.JFrame {
 
-    Connecter conn;
-    PreparedStatement pstm;
-    ResultSet Rs;
+    Connection con = null;
+    PreparedStatement pr = null;
+    ResultSet rs = null;
+    Statement st = null;
 
     /**
      * Creates new form CreerEntreprise
      */
     public ModifierEntreprise() {
+        con = Connecter.Connecter();
         initComponents();
+        lesEntreprises();
+
+    }
+
+    public List<Entreprise> lesEntreprises() {
+
+        try {
+
+            String sql = "select * FROM Entreprise";
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            List<Entreprise> lesEntreprises = new ArrayList<Entreprise>();
+            Entreprise e;
+            while (rs.next()) {
+
+                e = new Entreprise(
+                        
+                        rs.getString("nom_entreprise"),
+                        rs.getString("adresse_ville_entreprise"),
+                        rs.getString("adresse_rue_entreprise"),
+                        rs.getString("adresse_code_postal_entreprise"),
+                        rs.getString("tel_entreprise"),
+                        rs.getString("email_entreprise"),
+                        rs.getString("secteur_activite"));
+
+                lesEntreprises.add(e);
+
+                String nom = rs.getString("nom_entreprise");
+
+                // nom de la combo
+                ComboListeEntreprise.addItem(nom);
+
+            }
+            return lesEntreprises;
+
+        } catch (Exception e) {
+            return null;
+        }
 
     }
 
@@ -44,24 +87,22 @@ public class ModifierEntreprise extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtNomEntreprise = new javax.swing.JTextField();
         txtNumeroRue = new javax.swing.JTextField();
         txtCodePostal = new javax.swing.JTextField();
         txtMailContact = new javax.swing.JTextField();
         txtTelContact = new javax.swing.JTextField();
         txtVille = new javax.swing.JTextField();
         txtSecteur = new javax.swing.JTextField();
-        boutonEnvoyerEntreprise = new javax.swing.JButton();
+        boutonSupprimerEntreprise = new javax.swing.JButton();
         boutonAnnulerEntreprise = new javax.swing.JButton();
-        boutonEnvoyerEntreprise1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        boutonMaj = new javax.swing.JButton();
+        ComboListeEntreprise = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,8 +113,6 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Copperplate", 1, 24)); // NOI18N
         jLabel1.setText("MODIFIER UNE ENTREPRISE");
-
-        jLabel2.setText("Nom de l'entreprise");
 
         jLabel3.setText("Adresse (Numéro et rue)");
 
@@ -93,10 +132,10 @@ public class ModifierEntreprise extends javax.swing.JFrame {
             }
         });
 
-        boutonEnvoyerEntreprise.setText("Supprimer");
-        boutonEnvoyerEntreprise.addActionListener(new java.awt.event.ActionListener() {
+        boutonSupprimerEntreprise.setText("Supprimer");
+        boutonSupprimerEntreprise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonEnvoyerEntrepriseActionPerformed(evt);
+                boutonSupprimerEntrepriseActionPerformed(evt);
             }
         });
 
@@ -107,14 +146,12 @@ public class ModifierEntreprise extends javax.swing.JFrame {
             }
         });
 
-        boutonEnvoyerEntreprise1.setText("Mettre à jour");
-        boutonEnvoyerEntreprise1.addActionListener(new java.awt.event.ActionListener() {
+        boutonMaj.setText("Mettre à jour");
+        boutonMaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonEnvoyerEntreprise1ActionPerformed(evt);
+                boutonMajActionPerformed(evt);
             }
         });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel9.setText("Choix de l'entreprise à modifier :");
 
@@ -149,24 +186,17 @@ public class ModifierEntreprise extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(boutonEnvoyerEntreprise1)
+                                        .addComponent(boutonMaj)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 237, Short.MAX_VALUE)
-                                        .addComponent(boutonEnvoyerEntreprise)
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(boutonSupprimerEntreprise)
                                         .addGap(132, 132, 132)))
                                 .addComponent(boutonAnnulerEntreprise))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(96, 96, 96)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNomEntreprise, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))))
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(96, 96, 96)
+                                .addComponent(ComboListeEntreprise, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(57, 57, 57))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(123, 123, 123)
@@ -176,17 +206,13 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboListeEntreprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomEntreprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroRue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -212,8 +238,8 @@ public class ModifierEntreprise extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boutonEnvoyerEntreprise)
-                    .addComponent(boutonEnvoyerEntreprise1)
+                    .addComponent(boutonSupprimerEntreprise)
+                    .addComponent(boutonMaj)
                     .addComponent(boutonAnnulerEntreprise))
                 .addContainerGap())
         );
@@ -230,60 +256,26 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void boutonEnvoyerEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerEntrepriseActionPerformed
+    private void boutonSupprimerEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerEntrepriseActionPerformed
 
-        Connection con = null;
-        PreparedStatement pr = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/offreStage", "root", "root");
-            String sql= "INSERT INTO Entreprise "
-                   
-                    + "(nom_entreprise, "
-                    + "adresse_ville_entreprise, "
-                    + "adresse_rue_entreprise,"
-                    + "adresse_code_postal_entreprise,"
-                    + "tel_entreprise,"
-                    + "email,"
-                    + "secteur_activite )"
-                    + "VALUES(?,?,?,?,?,?,?)";
-          
-            pr = con.prepareStatement(sql);
-                    
-          
+            String nom = ComboListeEntreprise.getSelectedItem().toString();
+            String sql = "delete from Entreprise  where nom_entreprise ='" + nom+"'";
+            st = con.createStatement();
+            st.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(null, "l'offre est supprimée");
             
-            pr.setString(1, txtNomEntreprise.getText());
-            pr.setString(2, txtVille.getText());
-            pr.setString(3, txtNumeroRue.getText());
-            pr.setString(4, txtCodePostal.getText());
-            pr.setString(5, txtTelContact.getText());
-            pr.setString(6, txtMailContact.getText());
-            pr.setString(7,txtSecteur.getText());
-            pr.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Entreprise ajoutée avec succès !!");
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            
+            JOptionPane.showMessageDialog(null, "erreur :" + e);
+
         }
-    
 
-        /*String nom = txtNomEntreprise.getText();
-         String rue = txtNumeroRue.getText();
-         String code = txtCodePostal.getText();
-         String ville = txtVille.getText();
-         String mail = txtMailContact.getText();
-         String tel = txtTelContact.getText();
-         String secteur = txtSecteur.getText();
-         String sql = "Insert into Entreprise (nom_entreprise,adresse_ville_entreprise,adresse_rue_entreprise,adresse_code_postal,tel_entreprise,email,secteur_activite values('"+nom+"','"+ville+"','"+rue+"','"+code+"','"+tel+"','"+mail+"','"+secteur+"')";
-         */
-     
-        
-
-
-    }//GEN-LAST:event_boutonEnvoyerEntrepriseActionPerformed
+    }//GEN-LAST:event_boutonSupprimerEntrepriseActionPerformed
 
     private void txtCodePostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodePostalActionPerformed
         // TODO add your handling code here:
@@ -293,9 +285,27 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_boutonAnnulerEntrepriseActionPerformed
 
-    private void boutonEnvoyerEntreprise1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerEntreprise1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_boutonEnvoyerEntreprise1ActionPerformed
+    private void boutonMajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonMajActionPerformed
+        try {
+            String nom = ComboListeEntreprise.getSelectedItem().toString();
+            String sql = "update entreprise set "
+                    + "adresse_ville_entreprise = '" + txtVille.getText()
+                    + "',adresse_rue_entreprise = '" + txtNumeroRue.getText()
+                    + "',adresse_code_postal_entreprise= '" + txtCodePostal.getText()
+                    + "', tel_entreprise	 = '" + txtTelContact.getText()
+                    + "',email_entreprise = '" + txtMailContact.getText()
+                    + "' ,secteur_activite= '" + txtSecteur.getText() + "'  where nom_entreprise ='" + nom+"'";//bloqué toute la journée à cause des côtes du nom
+
+            st = con.createStatement();
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "mise à jour ok");
+            this.setVisible(false);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erreur : " + e);
+        }
+
+    }//GEN-LAST:event_boutonMajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,12 +344,11 @@ public class ModifierEntreprise extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox ComboListeEntreprise;
     private javax.swing.JButton boutonAnnulerEntreprise;
-    private javax.swing.JButton boutonEnvoyerEntreprise;
-    private javax.swing.JButton boutonEnvoyerEntreprise1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton boutonMaj;
+    private javax.swing.JButton boutonSupprimerEntreprise;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -350,7 +359,6 @@ public class ModifierEntreprise extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCodePostal;
     private javax.swing.JTextField txtMailContact;
-    private javax.swing.JTextField txtNomEntreprise;
     private javax.swing.JTextField txtNumeroRue;
     private javax.swing.JTextField txtSecteur;
     private javax.swing.JTextField txtTelContact;
