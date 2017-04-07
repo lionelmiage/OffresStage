@@ -6,3 +6,4 @@ __MACOSX
 nbproject/*
 !nbproject/project.properties
 !nbproject/project.xml
+/build/
