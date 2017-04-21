@@ -9,6 +9,7 @@ import bdd.Connecter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -55,7 +56,7 @@ public class CreerEtudiant extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 51));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 400));
 
         jLabel1.setText("Nom");
@@ -106,21 +107,13 @@ public class CreerEtudiant extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(83, 83, 83)
+                        .addGap(93, 93, 93)
                         .addComponent(txtNiveau))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(129, 129, 129)
-                        .addComponent(txtPrenom))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(146, 146, 146)
-                        .addComponent(txtNom))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7))
-                        .addGap(93, 93, 93)
+                        .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIdentifiant)
                             .addComponent(txtMDP)))
@@ -133,8 +126,16 @@ public class CreerEtudiant extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(boutonAnnuler))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(txtDateNaissance)))))
+                                .addGap(77, 77, 77)
+                                .addComponent(txtDateNaissance))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(129, 129, 129)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNom)
+                            .addComponent(txtPrenom))))
                 .addGap(144, 144, 144))
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,17 +192,49 @@ public class CreerEtudiant extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNiveauActionPerformed
 
-    private void boutonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonValiderActionPerformed
-        Connecter con = new Connecter();
-        PreparedStatement pr ;
-        
-        
-        
-    }//GEN-LAST:event_boutonValiderActionPerformed
-
     private void boutonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_boutonAnnulerActionPerformed
+
+    private void boutonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonValiderActionPerformed
+try {
+            
+            String sql= "INSERT INTO etudiant "
+                   
+                    + "(nom_etudiant, "
+                    + "prenom_etudiant, "
+                    + "date_de_naissance,"
+                    + "niveau_etude,"
+                    + "email_etudiant,"
+                    + "mdp_etudiant)"
+                    + "VALUES(?,?,?,?,?,?)";
+          
+            pr = con.prepareStatement(sql);
+                    
+          
+            
+            pr.setString(1, txtNom.getText());
+            pr.setString(2, txtPrenom.getText());
+            pr.setString(3, txtDateNaissance.getText());
+            pr.setString(4, txtNiveau.getText());
+            pr.setString(5, txtIdentifiant.getText());
+            pr.setString(6, txtMDP.getText());
+           
+            pr.executeUpdate();
+            
+            
+            JOptionPane.showMessageDialog(null, "Etudiant ajouté avec succès !!");
+            new ConsulterOffreEtudiant().setVisible(true);
+            
+            this.setVisible(false);
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            
+        }       
+
+    }//GEN-LAST:event_boutonValiderActionPerformed
 
     /**
      * @param args the command line arguments

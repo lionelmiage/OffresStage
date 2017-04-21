@@ -10,7 +10,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import modele.Entreprise;
+import net.proteanit.sql.DbUtils;
+import static modele.Entreprise.nomEntreprise;
 
 /**
  *
@@ -20,6 +27,7 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
     Connection con = null;
     PreparedStatement pr = null;
     ResultSet rs = null;
+    String name;
 
     /**
      * Creates new form CreationOffre
@@ -27,6 +35,9 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
     public EntrepriseCreerOffre(){
         con= Connecter.Connecter();
         initComponents();
+        txt_Nom_Id_Entreprise.setText(Entreprise.nomEntreprise);
+        name=txt_Nom_Id_Entreprise.getText().toString();
+        updateTable(name);
        
     }
 
@@ -297,6 +308,19 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
 
     }//GEN-LAST:event_boutonEnvoyerOffreActionPerformed
 
+    public void updateTable(String name){
+        String sql= "SELECT nom_etudiant,prenom_etudiant,niveau_etude,email_etudiant"
+                        + " FROM etudiant JOIN candidature WHER nom_entreprise="+name;
+        try {
+            pr = con.prepareStatement(sql);
+             rs = pr.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(EntrepriseCreerOffre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+        
+    }
     private void txtLibelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLibelleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLibelleActionPerformed

@@ -43,6 +43,7 @@ public class CreerEntreprise extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -63,6 +64,17 @@ public class CreerEntreprise extends javax.swing.JFrame {
         boutonAnnulerEntreprise = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtMdp = new javax.swing.JTextField();
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,13 +151,15 @@ public class CreerEntreprise extends javax.swing.JFrame {
                             .addComponent(txtNomEntreprise, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(81, 81, 81)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
                                 .addComponent(boutonEnvoyerEntreprise)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(boutonAnnulerEntreprise))
-                            .addComponent(txtSecteur))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(txtSecteur)))))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,25 +241,24 @@ public class CreerEntreprise extends javax.swing.JFrame {
                     + "tel_entreprise,"
                     + "email_entreprise,"
                     + "secteur_activite ,"
-                    +"	mdp_entreprise)"
+                    + "mdp_entreprise)"
                     + "VALUES(?,?,?,?,?,?,?,?)";
           
             pr = con.prepareStatement(sql);
-                    
-          
-            
+           
             pr.setString(1, txtNomEntreprise.getText());
             pr.setString(2, txtVille.getText());
             pr.setString(3, txtNumeroRue.getText());
             pr.setString(4, txtCodePostal.getText());
             pr.setString(5, txtTelContact.getText());
             pr.setString(6, txtMailContact.getText());
-            pr.setString(7,txtSecteur.getText());
+            pr.setString(7, txtSecteur.getText());
             pr.setString(8, txtMdp.getText());
             pr.executeUpdate();
             
             
             JOptionPane.showMessageDialog(null, "Entreprise ajoutée avec succès !!");
+            new EntrepriseCreerOffre().setVisible(true);
             this.setVisible(false);
 
         } catch (Exception e) {
@@ -324,6 +337,7 @@ public class CreerEntreprise extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCodePostal;
     private javax.swing.JTextField txtMailContact;

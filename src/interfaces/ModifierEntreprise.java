@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modele.Entreprise;
 
@@ -34,8 +36,32 @@ public class ModifierEntreprise extends javax.swing.JFrame {
      */
     public ModifierEntreprise() {
         con = Connecter.Connecter();
+        
         initComponents();
         lesEntreprises();
+    
+    }
+    
+     public void montrerOffres() {
+         String entreprise =ComboListeEntreprise.getSelectedItem().toString();
+         String sql ="SELECT adresse_rue_entreprise,adresse_code_postal_entreprise,"
+                         + "adresse_ville_entreprise,email_entreprise,tel_entreprise,secteur_activite"
+                         + "FROM entreprise where nom_entreprise ="+entreprise;
+        try {
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            while(rs.next()){
+        txtNumeroRue.setText(rs.getString("adresse_rue_entreprise"));
+        txtCodePostal.setText(rs.getString("adresse_code_postal_entreprise"));
+        txtVille.setText(rs.getString("adresse_ville_entreprise"));
+        txtMailContact.setText(rs.getString("email_entreprise"));
+        txtTelContact.setText(rs.getString("tel_entreprise"));
+        txtSecteur.setText(rs.getString("secteur_activite"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModifierEntreprise.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
 
     }
 
@@ -150,6 +176,12 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         boutonMaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonMajActionPerformed(evt);
+            }
+        });
+
+        ComboListeEntreprise.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ComboListeEntrepriseMouseClicked(evt);
             }
         });
 
@@ -306,6 +338,10 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_boutonMajActionPerformed
+
+    private void ComboListeEntrepriseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboListeEntrepriseMouseClicked
+       montrerOffres();
+    }//GEN-LAST:event_ComboListeEntrepriseMouseClicked
 
     /**
      * @param args the command line arguments

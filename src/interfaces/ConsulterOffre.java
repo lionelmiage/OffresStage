@@ -223,8 +223,6 @@ public class ConsulterOffre extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Référence :");
 
-        txtIdOffre.setText("jLabel11");
-
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Chemin de stockage ");
 
@@ -239,7 +237,7 @@ public class ConsulterOffre extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIdOffre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addComponent(boutonSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(boutonMaj, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,6 +384,16 @@ public class ConsulterOffre extends javax.swing.JFrame {
             st.executeUpdate(sql);
 
             JOptionPane.showMessageDialog(null, "l'offre est supprimée");
+        txtIdOffre.setText("");
+        txtLibelle.setText("");
+        txtDescriptif.setText("");
+        txtDomaine.setText("");
+        txtDateDebut.setText("");
+        txtDuree.setText("");
+        txtCheminStockage.setText("");
+        txtNomEntr.setText("");
+        txtMail.setText("");
+        txtVille.setText("");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "erreur :" + e);

@@ -305,12 +305,13 @@ public class AdminCreerOffre extends javax.swing.JFrame {
             pr.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "L'offre a été ajoutée avec succès !");
+              this.setVisible(false);
             pr.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
+        
 
     }//GEN-LAST:event_boutonEnvoyerOffreActionPerformed
 
