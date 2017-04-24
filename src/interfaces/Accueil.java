@@ -201,18 +201,17 @@ public class Accueil extends javax.swing.JFrame {
                 } else if (("entreprise".equals(choix)) && (rs.getString("email_entreprise").equals(txtIdentifiant.getText())
                         && rs.getString("mdp_entreprise").equals(txtMdp.getText()))) {
 
-                    String id_entreprise = rs.getString("email_entreprise");
-                    Entreprise.email = id_entreprise;
-                    String nom_entreprise = rs.getString("nom_entreprise");
-                    Entreprise.nomEntreprise = nom_entreprise;
-                    String adressE = rs.getString("adresse_ville_entreprise");
-                    Entreprise.adVille = adressE;
+                    Entreprise.email =  rs.getString("email_entreprise");
+                    
+                    Entreprise.nomEntreprise = rs.getString("nom_entreprise");
+                    
+                    Entreprise.adVille = rs.getString("adresse_ville_entreprise");
+                   
                    
                     
 
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
 
-                    new EntrepriseCreerOffre().setVisible(true);
                     new EntrepriseCreerOffre().setVisible(true);
                     this.setVisible(false);
 
