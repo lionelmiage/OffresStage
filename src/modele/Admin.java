@@ -12,6 +12,7 @@ package modele;
 public class Admin {
     public static String id_admin;
     public static String mdp_admin;
+    public static boolean isAdmin = false;
 
     public Admin() {
     }

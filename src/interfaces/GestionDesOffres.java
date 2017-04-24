@@ -199,33 +199,37 @@ public class GestionDesOffres extends javax.swing.JFrame {
     private void boutonSaisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSaisirActionPerformed
         AdminCreerOffre m = new AdminCreerOffre();
         m.setVisible(true);
+        this.setVisible(false);
 
 
     }//GEN-LAST:event_boutonSaisirActionPerformed
 
     private void boutonConsulterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConsulterActionPerformed
 
-        ConsulterOffre c = new ConsulterOffre();
+         new ConsulterOffre().setVisible(true);
 
-        c.setVisible(true);
+         this.setVisible(false);
 
 
     }//GEN-LAST:event_boutonConsulterActionPerformed
 
     private void bontonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bontonAnnulerActionPerformed
         this.setVisible(false);
+        new Accueil().setVisible(true);
     }//GEN-LAST:event_bontonAnnulerActionPerformed
 
     private void boutonCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonCreerActionPerformed
 
         CreerEntreprise c = new CreerEntreprise();
         c.setVisible(true);
+        this.setVisible(false);
 
     }//GEN-LAST:event_boutonCreerActionPerformed
 
     private void boutonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonModifierActionPerformed
-        ModifierEntreprise m = new ModifierEntreprise();
-        m.setVisible(true);
+        new ModifierEntreprise().setVisible(true);
+        
+        this.setVisible(false);
 
 
     }//GEN-LAST:event_boutonModifierActionPerformed

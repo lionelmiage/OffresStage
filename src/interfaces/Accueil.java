@@ -180,6 +180,7 @@ public class Accueil extends javax.swing.JFrame {
                     Admin.id_admin = id_admin;
 
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
+                    Admin.isAdmin = true;
 
                     new GestionDesOffres().setVisible(true);
                     this.setVisible(false);

@@ -306,6 +306,7 @@ public class AdminCreerOffre extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "L'offre a été ajoutée avec succès !");
               this.setVisible(false);
+              new GestionDesOffres().setVisible(true);
             pr.close();
 
         } catch (Exception e) {
@@ -321,6 +322,7 @@ public class AdminCreerOffre extends javax.swing.JFrame {
 
     private void boutonAnnulerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerOffreActionPerformed
         this.setVisible(false);
+        new GestionDesOffres().setVisible(true);
     }//GEN-LAST:event_boutonAnnulerOffreActionPerformed
 
     public List<Entreprise> lesEntreprises() {

@@ -45,7 +45,7 @@ public class ConsulterOffre extends javax.swing.JFrame {
 
         try {
 
-            String sql = "select * FROM Offre";
+            String sql = "select * FROM offre";
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             List<OffreStage> lesOffres = new ArrayList<OffreStage>();
@@ -374,6 +374,7 @@ public class ConsulterOffre extends javax.swing.JFrame {
 
     private void boutonFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonFermerActionPerformed
         this.setVisible(false);
+        new GestionDesOffres().setVisible(true);
     }//GEN-LAST:event_boutonFermerActionPerformed
 
     private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerActionPerformed

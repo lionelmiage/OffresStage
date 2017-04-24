@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import modele.Admin;
 
 /**
  *
@@ -258,8 +259,13 @@ public class CreerEntreprise extends javax.swing.JFrame {
             
             
             JOptionPane.showMessageDialog(null, "Entreprise ajoutée avec succès !!");
+           if (Admin.isAdmin){
+               this.setVisible(false);
+               new GestionDesOffres().setVisible(true);
+           }else{
             new Accueil().setVisible(true);
             this.setVisible(false);
+           }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -287,8 +293,13 @@ public class CreerEntreprise extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodePostalActionPerformed
 
     private void boutonAnnulerEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerEntrepriseActionPerformed
-        this.setVisible(false);
-        new Accueil().setVisible(true);
+         if (Admin.isAdmin){
+               this.setVisible(false);
+               new GestionDesOffres().setVisible(true);
+           }else{
+            new Accueil().setVisible(true);
+            this.setVisible(false);
+           }
     }//GEN-LAST:event_boutonAnnulerEntrepriseActionPerformed
 
     /**
