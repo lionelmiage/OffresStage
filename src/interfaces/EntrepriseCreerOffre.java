@@ -37,8 +37,8 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
         initComponents();
         txt_Nom_Id_Entreprise.setText(Entreprise.nomEntreprise);
       // txt_Nom_Id_Entreprise.setText(Entreprise.email);
-        name=txt_Nom_Id_Entreprise.getText().toString();
-        updateTable(name);
+        
+        updateTable();
        
     }
 
@@ -315,10 +315,14 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
 
     }//GEN-LAST:event_boutonEnvoyerOffreActionPerformed
 
-    public void updateTable(String name){
-        String sql= "SELECT nom_etudiant,prenom_etudiant,niveau_etude,email_etudiant"
-                        + " FROM etudiant JOIN candidature WHERE nom_entreprise="+name;
+    public void updateTable(){
+//        String sql= "SELECT nom_etudiant,prenom_etudiant,niveau_etude,email_etudiant"
+//                        + " FROM etudiant e JOIN candidature c WHERE e.id_etudiant = c.id_etudiant AND nom_entreprise="+name;
         try {
+            String sql= "SELECT nom_etudiant,prenom_etudiant,niveau_etude,email_etudiant"
+                        + " FROM etudiant e JOIN candidature c WHERE e.id_etudiant = c.id_etudiant"
+                        + " AND c.nom_entreprise="+"'"+Entreprise.nomEntreprise+"'";
+
             pr = con.prepareStatement(sql);
              rs = pr.executeQuery();
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
@@ -334,6 +338,7 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
 
     private void boutonAnnulerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerOffreActionPerformed
         this.setVisible(false);
+        new Accueil().setVisible(true);
     }//GEN-LAST:event_boutonAnnulerOffreActionPerformed
 
     /**

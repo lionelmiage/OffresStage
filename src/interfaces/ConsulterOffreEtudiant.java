@@ -45,7 +45,7 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
 
         try {
 
-            String sql = "select * FROM Offre";
+            String sql = "select * FROM offre";
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             List<OffreEtudiant> lesOffres = new ArrayList<OffreEtudiant>();

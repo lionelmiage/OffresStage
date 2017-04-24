@@ -232,7 +232,7 @@ public class CreerEntreprise extends javax.swing.JFrame {
         
         try {
             
-            String sql= "INSERT INTO Entreprise "
+            String sql= "INSERT INTO entreprise "
                    
                     + "(nom_entreprise, "
                     + "adresse_ville_entreprise, "

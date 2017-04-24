@@ -69,7 +69,7 @@ public class ModifierEntreprise extends javax.swing.JFrame {
 
         try {
 
-            String sql = "select * FROM Entreprise";
+            String sql = "select * FROM entreprise";
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             List<Entreprise> lesEntreprises = new ArrayList<Entreprise>();
@@ -295,7 +295,7 @@ public class ModifierEntreprise extends javax.swing.JFrame {
 
         try {
             String nom = ComboListeEntreprise.getSelectedItem().toString();
-            String sql = "delete from Entreprise  where nom_entreprise ='" + nom+"'";
+            String sql = "delete from entreprise  where nom_entreprise ='" + nom+"'";
             st = con.createStatement();
             st.executeUpdate(sql);
 

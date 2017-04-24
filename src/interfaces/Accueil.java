@@ -228,7 +228,8 @@ public class Accueil extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
+          //  JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
+          System.out.print("Catch block");
         }
 
     }//GEN-LAST:event_bouton_validerActionPerformed
