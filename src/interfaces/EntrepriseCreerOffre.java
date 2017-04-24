@@ -310,7 +310,7 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
 
     public void updateTable(String name){
         String sql= "SELECT nom_etudiant,prenom_etudiant,niveau_etude,email_etudiant"
-                        + " FROM etudiant JOIN candidature WHER nom_entreprise="+name;
+                        + " FROM etudiant JOIN candidature WHERE nom_entreprise="+name;
         try {
             pr = con.prepareStatement(sql);
              rs = pr.executeQuery();

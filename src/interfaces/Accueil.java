@@ -63,22 +63,22 @@ public class Accueil extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel1.setText("Bonjour, veuillez vous connecter");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(61, 30, 410, 32);
+        jLabel1.setBounds(90, 30, 460, 32);
 
         jLabel2.setText("Identifiant");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(40, 130, 65, 16);
+        jLabel2.setBounds(40, 130, 71, 17);
 
         jLabel3.setText("Mot de passe");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(40, 170, 83, 16);
+        jLabel3.setBounds(40, 170, 92, 17);
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel4.setText("Créer un compte");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(150, 270, 200, 30);
+        jLabel4.setBounds(190, 300, 240, 30);
         jPanel1.add(txtIdentifiant);
-        txtIdentifiant.setBounds(150, 120, 240, 28);
+        txtIdentifiant.setBounds(150, 120, 290, 27);
         jPanel1.add(jLabel6);
         jLabel6.setBounds(-60, 190, 100, 30);
 
@@ -89,7 +89,7 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(boutonEtudiant);
-        boutonEtudiant.setBounds(280, 330, 100, 29);
+        boutonEtudiant.setBounds(310, 340, 100, 29);
 
         boutonEntreprise.setText("Entreprise");
         boutonEntreprise.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +98,7 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(boutonEntreprise);
-        boutonEntreprise.setBounds(70, 330, 107, 29);
+        boutonEntreprise.setBounds(190, 340, 100, 29);
 
         bouton_valider.setText("Valider");
         bouton_valider.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,7 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(bouton_valider);
-        bouton_valider.setBounds(50, 210, 87, 29);
+        bouton_valider.setBounds(360, 220, 80, 30);
 
         choixUtilisateur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Etudiant", "Entreprise", "Admin" }));
         choixUtilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,7 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(choixUtilisateur);
-        choixUtilisateur.setBounds(40, 80, 120, 27);
+        choixUtilisateur.setBounds(150, 220, 150, 30);
 
         txtMdp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,17 +124,17 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtMdp);
-        txtMdp.setBounds(150, 160, 240, 28);
+        txtMdp.setBounds(150, 160, 290, 27);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -152,21 +152,37 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_boutonEtudiantActionPerformed
 
     private void bouton_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_validerActionPerformed
+
         String choix = choixUtilisateur.getSelectedItem().toString();
-        String id = txtIdentifiant.getText();
-        String motdepasse = new String(txtMdp.getPassword());
+        
+        
+        if ("Etudiant".equals(choix)){
+            choix = "etudiant";
+        }else if ("Admin".equals(choix)){
+            choix = "admin";
+        }else if ("Entreprise".equals(choix)){
+            choix = "entreprise";
+        }
+        
+        
+        
+//        String id = txtIdentifiant.getText();
+//        String motdepasse = txtMdp.getText();
         boolean drap = false;
 
         try {
-            String sql = "select * from " + choix;
+            String sql = "SELECT * FROM " + choix;
+
 
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
-
+            
+           
             while (rs.next()) {
+              
 
-                if ((choix == "Admin") && (rs.getString("email_admin").equals(id)
-                                && rs.getString("mdp_admin").equals(motdepasse))) {
+                if (("admin".equals(choix)) && (rs.getString("email_admin").equals(txtIdentifiant.getText())
+                                && rs.getString("mdp_admin").equals(txtMdp.getText()))) {
                     String id_admin = rs.getString("email_admin");
                     Admin.id_admin = id_admin;
                     
@@ -177,8 +193,8 @@ public class Accueil extends javax.swing.JFrame {
                     
                     break;
 
-                } else if ((choix == "Etudiant") && (rs.getString("email_etudiant").equals(id) 
-                                && rs.getString("mdp_etudiant").equals(motdepasse))) {
+                } else if (("etudiant".equals(choix)) && (rs.getString("email_etudiant").equals(txtIdentifiant.getText()) 
+                                && rs.getString("mdp_etudiant").equals(txtMdp.getText()))) {
                     
                    int id_etudiant = rs.getInt("id_etudiant");
                     Etudiant.id_etudiant = id_etudiant;
@@ -189,8 +205,8 @@ public class Accueil extends javax.swing.JFrame {
                     this.setVisible(false);
                     
                     break;
-                } else if ((choix == "Entreprise") && (rs.getString("email_entreprise").equals(id)
-                                && rs.getString("mdp_entreprise").equals(motdepasse))) {
+                } else if (("entreprise".equals(choix)) && (rs.getString("email_entreprise").equals(txtIdentifiant.getText())
+                                && rs.getString("mdp_entreprise").equals(txtMdp.getText()))) {
                    
                     String id_entreprise = rs.getString("email_entreprise");
                     Entreprise.email = id_entreprise;
@@ -203,6 +219,7 @@ public class Accueil extends javax.swing.JFrame {
                     
                     break;
                 } else {
+
                     drap = true;
                 }
 
@@ -213,7 +230,7 @@ public class Accueil extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-           // JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
+           JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
         }
 
     }//GEN-LAST:event_bouton_validerActionPerformed
@@ -252,11 +269,8 @@ public class Accueil extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Accueil().setVisible(true);
-
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Accueil().setVisible(true);
         });
     }
 

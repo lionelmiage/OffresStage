@@ -288,6 +288,7 @@ public class CreerEntreprise extends javax.swing.JFrame {
 
     private void boutonAnnulerEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAnnulerEntrepriseActionPerformed
         this.setVisible(false);
+        new Accueil().setVisible(true);
     }//GEN-LAST:event_boutonAnnulerEntrepriseActionPerformed
 
     /**

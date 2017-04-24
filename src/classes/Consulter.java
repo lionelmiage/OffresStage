@@ -58,29 +58,29 @@ public class Consulter extends javax.swing.JFrame {
 
         jLabel1.setText("Nom de l'entreprise");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 50, 100, 14);
+        jLabel1.setBounds(10, 50, 100, 17);
 
         jLabel2.setText("Mail de contact");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 80, 90, 14);
+        jLabel2.setBounds(10, 80, 90, 17);
 
         jLabel3.setText("Libele de l'offre");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 110, 80, 14);
+        jLabel3.setBounds(10, 110, 80, 17);
 
         jLabel4.setText("ville de stage");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(300, 50, 83, 14);
+        jLabel4.setBounds(300, 50, 83, 17);
         getContentPane().add(jLabel5);
         jLabel5.setBounds(314, 83, 83, 0);
 
         jLabel6.setText("Domaine d'offre");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(300, 80, 105, 14);
+        jLabel6.setBounds(300, 80, 105, 17);
 
         jLabel7.setText("Date debut de stage");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(10, 194, 121, 14);
+        jLabel7.setBounds(10, 194, 121, 17);
 
         jLabel8.setText("Date debut de stage");
         getContentPane().add(jLabel8);
@@ -88,7 +88,7 @@ public class Consulter extends javax.swing.JFrame {
 
         jLabel9.setText("Description de l'offre");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(10, 260, 121, 14);
+        jLabel9.setBounds(10, 260, 121, 17);
 
         BSuivant.setText("Suivant");
         BSuivant.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +97,7 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BSuivant);
-        BSuivant.setBounds(270, 340, 69, 23);
+        BSuivant.setBounds(270, 340, 62, 29);
 
         BPrecedent.setText("prècèdent");
         BPrecedent.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BPrecedent);
-        BPrecedent.setBounds(90, 340, 81, 23);
+        BPrecedent.setBounds(90, 340, 86, 29);
 
         BFermer.setText("Fermer");
         BFermer.addActionListener(new java.awt.event.ActionListener() {
@@ -115,9 +115,9 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BFermer);
-        BFermer.setBounds(450, 340, 67, 23);
+        BFermer.setBounds(450, 340, 63, 29);
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(120, 50, 159, 20);
+        jTextField1.setBounds(120, 50, 159, 27);
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +125,7 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField2);
-        jTextField2.setBounds(120, 80, 159, 20);
+        jTextField2.setBounds(120, 80, 159, 27);
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,15 +133,21 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField3);
-        jTextField3.setBounds(410, 190, 159, 20);
+        jTextField3.setBounds(410, 190, 159, 27);
         getContentPane().add(jTextField4);
-        jTextField4.setBounds(410, 80, 159, 20);
+        jTextField4.setBounds(410, 80, 159, 27);
+
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField5);
-        jTextField5.setBounds(410, 50, 159, 20);
+        jTextField5.setBounds(410, 50, 159, 27);
 
         jTextField6.setText("jTextField1");
         getContentPane().add(jTextField6);
-        jTextField6.setBounds(410, 50, 159, 20);
+        jTextField6.setBounds(410, 50, 159, 27);
         getContentPane().add(jTextField7);
         jTextField7.setBounds(150, 240, 350, 70);
 
@@ -151,7 +157,7 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField8);
-        jTextField8.setBounds(120, 110, 450, 20);
+        jTextField8.setBounds(120, 110, 450, 27);
 
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +165,7 @@ public class Consulter extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField9);
-        jTextField9.setBounds(120, 190, 159, 20);
+        jTextField9.setBounds(120, 190, 159, 27);
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -213,6 +219,10 @@ public class Consulter extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     /**
      * @param args the command line arguments
