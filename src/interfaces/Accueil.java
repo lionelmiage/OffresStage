@@ -172,7 +172,7 @@ public class Accueil extends javax.swing.JFrame {
 
         try {
             String sql = "SELECT * FROM " + choix;
-
+            //pour le commit
 
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
