@@ -258,7 +258,7 @@ public class CreerEntreprise extends javax.swing.JFrame {
             
             
             JOptionPane.showMessageDialog(null, "Entreprise ajoutée avec succès !!");
-            new EntrepriseCreerOffre().setVisible(true);
+            new Accueil().setVisible(true);
             this.setVisible(false);
 
         } catch (Exception e) {

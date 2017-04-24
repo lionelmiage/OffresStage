@@ -228,7 +228,7 @@ try {
             new ConsulterOffreEtudiant().setVisible(true);
             
             this.setVisible(false);
-            
+            new Accueil().setVisible(true);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
