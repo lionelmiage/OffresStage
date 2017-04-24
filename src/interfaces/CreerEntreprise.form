@@ -94,12 +94,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                                  <Component id="boutonEnvoyerEntreprise" min="-2" max="-2" attributes="0"/>
+                                  <Component id="boutonEnvoyerEntreprise" min="-2" pref="105" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="boutonAnnulerEntreprise" min="-2" max="-2" attributes="0"/>
+                                  <Component id="boutonAnnulerEntreprise" min="-2" pref="98" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                                   <Component id="txtSecteur" max="32767" attributes="0"/>
                               </Group>
                           </Group>
