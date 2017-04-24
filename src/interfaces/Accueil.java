@@ -12,18 +12,17 @@ import modele.Entreprise;
 import modele.OffreStage;
 import modele.Etudiant;
 
-
 public class Accueil extends javax.swing.JFrame {
 
     Connection con;
     ResultSet rs = null;
     PreparedStatement pr = null;
-    
+
     public Accueil() {
         con = Connecter.Connecter();
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,76 +146,76 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_boutonEntrepriseActionPerformed
 
     private void boutonEtudiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEtudiantActionPerformed
-       new CreerEtudiant().setVisible(true);
-       this.setVisible(false);
+        new CreerEtudiant().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_boutonEtudiantActionPerformed
 
     private void bouton_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_validerActionPerformed
 
         String choix = choixUtilisateur.getSelectedItem().toString();
-        
-        
-        if ("Etudiant".equals(choix)){
+
+        if ("Etudiant".equals(choix)) {
             choix = "etudiant";
-        }else if ("Admin".equals(choix)){
+        } else if ("Admin".equals(choix)) {
             choix = "admin";
-        }else if ("Entreprise".equals(choix)){
+        } else if ("Entreprise".equals(choix)) {
             choix = "entreprise";
         }
-        
-        
-        
+
 //        String id = txtIdentifiant.getText();
 //        String motdepasse = txtMdp.getText();
         boolean drap = false;
 
         try {
             String sql = "SELECT * FROM " + choix;
-            //pour le commit
 
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
-            
-           
+
             while (rs.next()) {
-              
 
                 if (("admin".equals(choix)) && (rs.getString("email_admin").equals(txtIdentifiant.getText())
-                                && rs.getString("mdp_admin").equals(txtMdp.getText()))) {
+                        && rs.getString("mdp_admin").equals(txtMdp.getText()))) {
                     String id_admin = rs.getString("email_admin");
                     Admin.id_admin = id_admin;
-                    
+
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
-                    
-                     new GestionDesOffres().setVisible(true);
+
+                    new GestionDesOffres().setVisible(true);
                     this.setVisible(false);
-                    
+
                     break;
 
-                } else if (("etudiant".equals(choix)) && (rs.getString("email_etudiant").equals(txtIdentifiant.getText()) 
-                                && rs.getString("mdp_etudiant").equals(txtMdp.getText()))) {
-                    
-                   int id_etudiant = rs.getInt("id_etudiant");
+                } else if (("etudiant".equals(choix)) && (rs.getString("email_etudiant").equals(txtIdentifiant.getText())
+                        && rs.getString("mdp_etudiant").equals(txtMdp.getText()))) {
+
+                    int id_etudiant = rs.getInt("id_etudiant");
                     Etudiant.id_etudiant = id_etudiant;
-                    
+
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
-                    
+
                     new ConsulterOffreEtudiant().setVisible(true);
                     this.setVisible(false);
-                    
+
                     break;
                 } else if (("entreprise".equals(choix)) && (rs.getString("email_entreprise").equals(txtIdentifiant.getText())
-                                && rs.getString("mdp_entreprise").equals(txtMdp.getText()))) {
-                   
+                        && rs.getString("mdp_entreprise").equals(txtMdp.getText()))) {
+
                     String id_entreprise = rs.getString("email_entreprise");
                     Entreprise.email = id_entreprise;
+                    String nom_entreprise = rs.getString("nom_entreprise");
+                    Entreprise.nomEntreprise = nom_entreprise;
+                    String adressE = rs.getString("adresse_ville_entreprise");
+                    Entreprise.adVille = adressE;
+                   
                     
+
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
-                    
+
                     new EntrepriseCreerOffre().setVisible(true);
                     new EntrepriseCreerOffre().setVisible(true);
                     this.setVisible(false);
-                    
+
                     break;
                 } else {
 
@@ -230,7 +229,7 @@ public class Accueil extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-           JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
+            JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
         }
 
     }//GEN-LAST:event_bouton_validerActionPerformed

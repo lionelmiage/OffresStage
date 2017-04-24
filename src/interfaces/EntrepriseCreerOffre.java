@@ -36,6 +36,7 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
         con= Connecter.Connecter();
         initComponents();
         txt_Nom_Id_Entreprise.setText(Entreprise.nomEntreprise);
+      // txt_Nom_Id_Entreprise.setText(Entreprise.email);
         name=txt_Nom_Id_Entreprise.getText().toString();
         updateTable(name);
        
@@ -280,14 +281,17 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
         try {
 
             
-            String sql = "INSERT INTO Offre "
+            String sql = "INSERT INTO offre "
                     + "(libelle_offre,"//1
                     + "description_offre,"//2
                     + "domaine_offre,"//3
                     + "date_debut_offre,"//4
                     + "duree_offre,"//5
-                    + "chemin_offre)"//6
-                    + "VALUES(?,?,?,?,?,?)";
+                    + "chemin_offre,"//6
+                    + "nom_entreprise,"//7
+                    + "email_entreprise,"//8
+                    + "adresse_ville_entreprise)"//9
+                    + "VALUES(?,?,?,?,?,?,?,?,?)";
 
             pr = con.prepareStatement(sql);
 
@@ -297,6 +301,9 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
             pr.setString(4, txtDateOffre.getText());
             pr.setString(5, txtDureeOffre.getText());
             pr.setString(6, txtCheminStockage.getText());
+            pr.setString(7, Entreprise.nomEntreprise);
+            pr.setString(8, Entreprise.email);
+            pr.setString(9, Entreprise.adVille);
             pr.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "L'offre a été ajoutée avec succès !");
