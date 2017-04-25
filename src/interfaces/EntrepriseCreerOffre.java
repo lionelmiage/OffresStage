@@ -35,11 +35,8 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
     public EntrepriseCreerOffre(){
         con= Connecter.Connecter();
         initComponents();
-        txt_Nom_Id_Entreprise.setText(Entreprise.nomEntreprise);
-      // txt_Nom_Id_Entreprise.setText(Entreprise.email);
-        
+        txt_Nom_Id_Entreprise.setText(Entreprise.nomEntreprise); 
         updateTable();
-       
     }
 
     /**
@@ -135,7 +132,7 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
         txtDescriptionOffre.setRows(5);
         jScrollPane1.setViewportView(txtDescriptionOffre);
 
-        txt_Nom_Id_Entreprise.setText("jLabel10");
+        txt_Nom_Id_Entreprise.setForeground(new java.awt.Color(255, 255, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,13 +271,25 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public void setAll(){
+         txtLibelle.setText("");
+         txtDescriptionOffre.setText("");
+         txtDateOffre.setText("");
+         txtDureeOffre.setText("");
+         txtCheminStockage.setText("");    
+}
+    
     private void boutonEnvoyerOffreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnvoyerOffreActionPerformed
-        
-
+          // teste de verification des champs sont tous remplis
+        if(      txtLibelle.getText().equals("")||
+            txtDescriptionOffre.getText().equals("")||
+            txtDateOffre.getText().equals("")||
+            txtDureeOffre.getText().equals("")||
+            txtCheminStockage.getText().equals("")){
+    JOptionPane.showMessageDialog(null, "verifiez les champs !!!");
+    }else{
+           
         try {
-
-            
             String sql = "INSERT INTO offre "
                     + "(libelle_offre,"//1
                     + "description_offre,"//2
@@ -307,10 +316,13 @@ public class EntrepriseCreerOffre extends javax.swing.JFrame {
             pr.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "L'offre a été ajoutée avec succès !");
+
+            setAll();
             pr.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+}
 
 
     }//GEN-LAST:event_boutonEnvoyerOffreActionPerformed

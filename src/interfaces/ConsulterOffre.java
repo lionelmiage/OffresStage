@@ -442,10 +442,15 @@ public class ConsulterOffre extends javax.swing.JFrame {
             st = con.createStatement();
             st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null, "L'offre est mise à jour");
-
+            
+            // afficher l offre suivante
+            pos++;
+            montrerOffres(pos);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erreur : " + e);
         }
+       
+        
     }//GEN-LAST:event_boutonMajActionPerformed
 //info de deux tables et navigation entre les offres
 

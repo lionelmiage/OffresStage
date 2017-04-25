@@ -14,12 +14,12 @@ import modele.Etudiant;
 
 public class Accueil extends javax.swing.JFrame {
 
-    Connection con;
-    ResultSet rs = null;
-    PreparedStatement pr = null;
+    Connection con;                // variable connexion
+    ResultSet rs = null;           //  variable ou on stock les resultats
+    PreparedStatement pr = null;   // preparateur de la requete SQL
 
     public Accueil() {
-        con = Connecter.Connecter();
+        con = Connecter.Connecter();  //etablissement de la connexion automatiquement a l'appel de la fenetre
         initComponents();
     }
 
@@ -139,21 +139,26 @@ public class Accueil extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+//bouton créer entreprise
     private void boutonEntrepriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEntrepriseActionPerformed
         new CreerEntreprise().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_boutonEntrepriseActionPerformed
-
+//bouton créer etudiant
     private void boutonEtudiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEtudiantActionPerformed
         new CreerEtudiant().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_boutonEtudiantActionPerformed
-
+   // fonction effacer les champs d'écriture
+    public void setAll(){
+        txtIdentifiant.setText("");
+        txtMdp.setText("");   
+    }
+    
     private void bouton_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_validerActionPerformed
 
         String choix = choixUtilisateur.getSelectedItem().toString();
-
+        // on recupere la valeur du comboBox
         if ("Etudiant".equals(choix)) {
             choix = "etudiant";
         } else if ("Admin".equals(choix)) {
@@ -162,8 +167,6 @@ public class Accueil extends javax.swing.JFrame {
             choix = "entreprise";
         }
 
-//        String id = txtIdentifiant.getText();
-//        String motdepasse = txtMdp.getText();
         boolean drap = false;
 
         try {
@@ -171,16 +174,18 @@ public class Accueil extends javax.swing.JFrame {
 
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
-
+           // Authentification
             while (rs.next()) {
 
                 if (("admin".equals(choix)) && (rs.getString("email_admin").equals(txtIdentifiant.getText())
                         && rs.getString("mdp_admin").equals(txtMdp.getText()))) {
-                    String id_admin = rs.getString("email_admin");
-                    Admin.id_admin = id_admin;
-
-                    JOptionPane.showMessageDialog(null, "Vous êtes connecté");
-                    Admin.isAdmin = true;
+                    
+                              String id_admin = rs.getString("email_admin");
+                              Admin.id_admin = id_admin;
+                              drap = false;
+                              JOptionPane.showMessageDialog(null, "Vous êtes connecté");
+                    
+                               Admin.isAdmin = true;
 
                     new GestionDesOffres().setVisible(true);
                     this.setVisible(false);
@@ -190,10 +195,10 @@ public class Accueil extends javax.swing.JFrame {
                 } else if (("etudiant".equals(choix)) && (rs.getString("email_etudiant").equals(txtIdentifiant.getText())
                         && rs.getString("mdp_etudiant").equals(txtMdp.getText()))) {
 
-                    int id_etudiant = rs.getInt("id_etudiant");
-                    Etudiant.id_etudiant = id_etudiant;
-
-                    JOptionPane.showMessageDialog(null, "Vous êtes connecté");
+                            int id_etudiant = rs.getInt("id_etudiant");
+                            Etudiant.id_etudiant = id_etudiant;
+                            drap = false;
+                            JOptionPane.showMessageDialog(null, "Vous êtes connecté");
 
                     new ConsulterOffreEtudiant().setVisible(true);
                     this.setVisible(false);
@@ -202,14 +207,11 @@ public class Accueil extends javax.swing.JFrame {
                 } else if (("entreprise".equals(choix)) && (rs.getString("email_entreprise").equals(txtIdentifiant.getText())
                         && rs.getString("mdp_entreprise").equals(txtMdp.getText()))) {
 
-                    Entreprise.email =  rs.getString("email_entreprise");
-                    
-                    Entreprise.nomEntreprise = rs.getString("nom_entreprise");
-                    
-                    Entreprise.adVille = rs.getString("adresse_ville_entreprise");
-                   
-                   
-                    
+                            Entreprise.email =  rs.getString("email_entreprise");                   
+                            Entreprise.nomEntreprise = rs.getString("nom_entreprise");
+                            Entreprise.adVille = rs.getString("adresse_ville_entreprise");
+                              
+                    drap = false;
 
                     JOptionPane.showMessageDialog(null, "Vous êtes connecté");
 
@@ -221,7 +223,6 @@ public class Accueil extends javax.swing.JFrame {
 
                     drap = true;
                 }
-
             }
 
             if (drap) {
@@ -229,9 +230,10 @@ public class Accueil extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-          //  JOptionPane.showMessageDialog(null, "login ou mdp incorrect :" + e);
+        
           System.out.print("Catch block");
         }
+        setAll();
 
     }//GEN-LAST:event_bouton_validerActionPerformed
 

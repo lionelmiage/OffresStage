@@ -41,7 +41,7 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         lesEntreprises();
     
     }
-    
+    // fonction affiche les offres
      public void montrerOffres() {
          String entreprise =ComboListeEntreprise.getSelectedItem().toString();
          String sql ="SELECT adresse_rue_entreprise,adresse_code_postal_entreprise,"
@@ -51,12 +51,12 @@ public class ModifierEntreprise extends javax.swing.JFrame {
             pr = con.prepareStatement(sql);
             rs = pr.executeQuery();
             while(rs.next()){
-        txtNumeroRue.setText(rs.getString("adresse_rue_entreprise"));
-        txtCodePostal.setText(rs.getString("adresse_code_postal_entreprise"));
-        txtVille.setText(rs.getString("adresse_ville_entreprise"));
-        txtMailContact.setText(rs.getString("email_entreprise"));
-        txtTelContact.setText(rs.getString("tel_entreprise"));
-        txtSecteur.setText(rs.getString("secteur_activite"));
+                          txtNumeroRue.setText(rs.getString("adresse_rue_entreprise"));
+                          txtCodePostal.setText(rs.getString("adresse_code_postal_entreprise"));
+                          txtVille.setText(rs.getString("adresse_ville_entreprise"));
+                          txtMailContact.setText(rs.getString("email_entreprise"));
+                          txtTelContact.setText(rs.getString("tel_entreprise"));
+                          txtSecteur.setText(rs.getString("secteur_activite"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ModifierEntreprise.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,7 +64,7 @@ public class ModifierEntreprise extends javax.swing.JFrame {
            
 
     }
-
+       // stocker les offre dans une liste des entreprises
     public List<Entreprise> lesEntreprises() {
 
         try {
@@ -319,6 +319,15 @@ public class ModifierEntreprise extends javax.swing.JFrame {
     }//GEN-LAST:event_boutonAnnulerEntrepriseActionPerformed
 
     private void boutonMajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonMajActionPerformed
+        if(txtVille.getText().equals("")||
+                    txtNumeroRue.getText().equals("")||
+                    txtCodePostal.getText().equals("")||
+                    txtTelContact.getText().equals("")||
+                     txtMailContact.getText().equals("")||
+                     txtSecteur.getText().equals("")){
+            // verification des champs
+            JOptionPane.showMessageDialog(null, "verifiez les champs !!!");
+        }else{
         try {
             String nom = ComboListeEntreprise.getSelectedItem().toString();
             String sql = "update entreprise set "
@@ -337,7 +346,7 @@ public class ModifierEntreprise extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erreur : " + e);
         }
-
+                        }
     }//GEN-LAST:event_boutonMajActionPerformed
 
     private void ComboListeEntrepriseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboListeEntrepriseMouseClicked

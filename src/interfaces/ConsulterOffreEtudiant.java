@@ -23,11 +23,12 @@ import static modele.Etudiant.id_etudiant;
  * @author Bilal
  */
 public class ConsulterOffreEtudiant extends javax.swing.JFrame {
+    // les variable pour etablire la connexion et la preparation des requetes SQL
     Connection con = null;
     PreparedStatement pr = null;
     ResultSet rs = null;
-     Statement st = null;
-     
+    Statement st = null;
+    int pos = 0; 
 
     /**
      * Creates new form ConsulterOffre
@@ -36,11 +37,9 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
         con = Connecter.Connecter();
         initComponents();
         montrerOffres(pos);
-       
-        
+  
     }
-       int pos = 0;
-
+     
         public List<OffreEtudiant> lesOffres() {
 
         try {
@@ -50,7 +49,6 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
             rs = pr.executeQuery();
             List<OffreEtudiant> lesOffres = new ArrayList<OffreEtudiant>();
             OffreEtudiant o;
-           // Entreprise e;
             while (rs.next()) {
                 
                 o = new OffreEtudiant(
@@ -72,18 +70,18 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
         } catch (Exception e) {
             return null;
         }
-
     }
+        // affichage des offres
          public void montrerOffres(int index) {
         
-        consultationLibelle.setText(lesOffres().get(index).getLibelleOffre());
-        Descriptif.setText(lesOffres().get(index).getDescriptionOffre());
-        consultationDomaine.setText(lesOffres().get(index).getDomaineOffre());
-        consultationDateDebut.setText(lesOffres().get(index).getDebutOffre());
-        consultationDuree.setText(lesOffres().get(index).getDureeOffre());
-        consultationNomEntr.setText(lesOffres().get(index).getNom_entreprise());
-        consultationMail.setText(lesOffres().get(index).getContact_entreprise());
-        consultationVille.setText(lesOffres().get(index).getVille_entreprise());
+                consultationLibelle.setText(lesOffres().get(index).getLibelleOffre());
+                Descriptif.setText(lesOffres().get(index).getDescriptionOffre());
+                consultationDomaine.setText(lesOffres().get(index).getDomaineOffre());
+                consultationDateDebut.setText(lesOffres().get(index).getDebutOffre());
+                consultationDuree.setText(lesOffres().get(index).getDureeOffre());
+                consultationNomEntr.setText(lesOffres().get(index).getNom_entreprise());
+                consultationMail.setText(lesOffres().get(index).getContact_entreprise());
+                consultationVille.setText(lesOffres().get(index).getVille_entreprise());
 
     }
     @SuppressWarnings("unchecked")
@@ -328,20 +326,20 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
                     + "VALUES(?,?,?)";
           
             pr = con.prepareStatement(sql);
-               
+            
             pr.setInt(1, v);
             pr.setInt(2, Etudiant.id_etudiant);
             pr.setString(3, consultationNomEntr.getText());
            
             pr.executeUpdate();
             
-            
             JOptionPane.showMessageDialog(null, "candidature réussie !!");
-           
+            //afficher l'offre suivant
+            pos++;
+            montrerOffres(pos);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            
+          } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);  
         }
     }//GEN-LAST:event_boutonPostulerActionPerformed
 
@@ -357,7 +355,6 @@ public class ConsulterOffreEtudiant extends javax.swing.JFrame {
             pos = 0;
         }
         montrerOffres(pos);
-
     }//GEN-LAST:event_boutonPrecedentActionPerformed
 
     private void boutonSuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSuivantActionPerformed
